@@ -3,15 +3,6 @@ import 'package:flutter/services.dart';
 class TapsellPlus {
   static const MethodChannel _channel = const MethodChannel('tapsell_plus');
 
-  /*static get showAlertDialog async {
-    await _channel.invokeMethod('showAlertDialog');
-  }*/
-
-  /*static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }*/
-
   static final VERBOSE = 2;
   static final DEBUG = 3;
   static final INFO = 4;
@@ -52,5 +43,17 @@ class TapsellPlus {
   static Future<Object> showAd(String zoneId) async {
     return await _channel
         .invokeMethod('showAd', <String, dynamic>{'zoneId': zoneId});
+  }
+
+  static Future<Object> showBannerAd(String zoneId) async {
+    return await _channel
+        .invokeMethod('showBannerAd', <String, dynamic>{'zoneId': zoneId});
+  }
+
+  static nativeBannerAdClicked(String zoneId, String adId) async {
+    await _channel.invokeMethod('nativeBannerAdClicked', <String, dynamic>{
+      'zoneId': zoneId,
+      'adId': adId,
+    });
   }
 }

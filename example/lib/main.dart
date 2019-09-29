@@ -2,9 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:tapsell_plus/tapsell_plus.dart';
-import 'package:tapsell_plus_example/TapsellPlusNativeBanner.dart';
-import 'package:tapsell_plus_example/TapsellRaisedButtonWidget.dart';
 import 'package:tapsell_plus_example/TapsellPlusResponse.dart';
+import 'package:tapsell_plus_example/TapsellRaisedButtonWidget.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,7 +25,6 @@ class _MyAppState extends State<MyApp> {
     //TapsellPlus.addFacebookTestDevice("HASH_CODE");
 
     TapsellPlus.requestInterstitial("5cfaa942e8d17f0001ffb292").then((value) {
-
       TapsellPlus.showAd(value).then((value) {
         Map responseMap = jsonDecode(value);
         var response = TapsellPlusResponse.fromJson(responseMap);
@@ -36,7 +34,6 @@ class _MyAppState extends State<MyApp> {
       }).catchError((err) {
         print('error caught: zone_id = ${err.code}, message = ${err.message}');
       });
-
     }).catchError((err) {
       print('error caught: zone_id = ${err.code}, message = ${err.message}');
     });
@@ -63,6 +60,8 @@ class _MyAppState extends State<MyApp> {
     }).catchError((err) {
       print('error caught: zone_id = ${err.code}, message = ${err.message}');
     });*/
+
+    TapsellPlus.nativeBannerAdClicked("5cfaa802e8d17f0001ffb28e", "");
   }
 
   /*// Platform messages are asynchronous, so we initialize in an async method.
