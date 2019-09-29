@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:tapsell_plus/TapsellPlusNativeBanner.dart';
+import 'package:tapsell_plus/TapsellPlusResponse.dart';
 
 class TapsellPlus {
   static const MethodChannel _channel = const MethodChannel('tapsell_plus');
@@ -62,10 +63,26 @@ class TapsellPlus {
   }
 
   static Future<Object> showAd(
-      String zoneId, Function response, Function error) async {
+      String zoneId, Function opened, Function closed, Function rewarded, Function error) async {
     return await _channel.invokeMethod(
         'showAd', <String, dynamic>{'zoneId': zoneId}).then((value) {
-      response(value);
+      Map responseMap = jsonDecode(value);
+      var response = TapsellPlusResponse.fromJson(responseMap);
+
+      switch(response.responseType){
+        case "AdOpened":{
+          opened(zoneId);
+          break;
+        }
+        case "AdClosed":{
+          closed(zoneId);
+          break;
+        }
+        case "AdRewarded":{
+          rewarded(zoneId);
+          break;
+        }
+      }
     }).catchError((err) {
       error(err.code, err.message);
     });

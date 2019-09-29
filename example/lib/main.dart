@@ -11,8 +11,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     super.initState();
@@ -37,8 +35,12 @@ class _MyAppState extends State<MyApp> {
         (nativeBanner) => nativeBannerResponse(nativeBanner),
         (zoneId, errorMessage) => error(zoneId, errorMessage));*/
 
-    /*TapsellPlus.showAd("5cfaa942e8d17f0001ffb292", (zoneId) => response(zoneId),
-        (zoneId, errorMessage) => error(zoneId, errorMessage));*/
+    TapsellPlus.showAd(
+        "5cfaa942e8d17f0001ffb292",
+        (zoneId) => opened(zoneId),
+        (zoneId) => closed(zoneId),
+        (zoneId) => rewarded(zoneId),
+        (zoneId, errorMessage) => error(zoneId, errorMessage));
 
     //TapsellPlus.nativeBannerAdClicked("5cfaa802e8d17f0001ffb28e", "");
   }
@@ -53,8 +55,19 @@ class _MyAppState extends State<MyApp> {
 
   nativeBannerResponse(nativeBanner) {
     TapsellPlusNativeBanner banner = nativeBanner;
-
     print("success: native banner Ad id = ${banner.adId}");
+  }
+
+  opened(zoneId) {
+    print("opened: zone_id = $zoneId");
+  }
+
+  closed(zoneId) {
+    print("closed: zone_id = $zoneId");
+  }
+
+  rewarded(zoneId) {
+    print("rewarded: zone_id = $zoneId");
   }
 
   @override
