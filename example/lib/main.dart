@@ -35,12 +35,12 @@ class _MyAppState extends State<MyApp> {
         (nativeBanner) => nativeBannerResponse(nativeBanner),
         (zoneId, errorMessage) => error(zoneId, errorMessage));*/
 
-    TapsellPlus.showAd(
+    /*TapsellPlus.showAd(
         "5cfaa942e8d17f0001ffb292",
         (zoneId) => opened(zoneId),
         (zoneId) => closed(zoneId),
         (zoneId) => rewarded(zoneId),
-        (zoneId, errorMessage) => error(zoneId, errorMessage));
+        (zoneId, errorMessage) => error(zoneId, errorMessage));*/
 
     //TapsellPlus.nativeBannerAdClicked("5cfaa802e8d17f0001ffb28e", "");
   }
