@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
+import 'package:tapsell_plus/TapsellPlusNativeBanner.dart';
 
 class TapsellPlus {
   static const MethodChannel _channel = const MethodChannel('tapsell_plus');
@@ -25,24 +28,47 @@ class TapsellPlus {
         .invokeMethod('addFacebookTestDevice', <String, dynamic>{'hash': hash});
   }
 
-  static Future<Object> requestRewardedVideo(String zoneId) async {
-    return await _channel.invokeMethod(
-        'requestRewardedVideo', <String, dynamic>{'zoneId': zoneId});
+  static Future<Object> requestRewardedVideo(
+      String zoneId, Function response, Function error) async {
+    return await _channel.invokeMethod('requestRewardedVideo',
+        <String, dynamic>{'zoneId': zoneId}).then((value) {
+      response(value);
+    }).catchError((err) {
+      error(err.code, err.message);
+    });
   }
 
-  static Future<Object> requestInterstitial(String zoneId) async {
-    return await _channel.invokeMethod(
-        'requestInterstitial', <String, dynamic>{'zoneId': zoneId});
+  static Future<Object> requestInterstitial(
+      String zoneId, Function response, Function error) async {
+    return await _channel.invokeMethod('requestInterstitial',
+        <String, dynamic>{'zoneId': zoneId}).then((value) {
+      response(value);
+    }).catchError((err) {
+      error(err.code, err.message);
+    });
   }
 
-  static Future<Object> requestNativeBanner(String zoneId) async {
-    return await _channel.invokeMethod(
-        'requestNativeBanner', <String, dynamic>{'zoneId': zoneId});
+  static Future<Object> requestNativeBanner(
+      String zoneId, Function response, Function error) async {
+    return await _channel.invokeMethod('requestNativeBanner',
+        <String, dynamic>{'zoneId': zoneId}).then((value) {
+      Map nativeBannerMap = jsonDecode(value);
+      var nativeBanner = TapsellPlusNativeBanner.fromJson(nativeBannerMap);
+
+      response(nativeBanner);
+    }).catchError((err) {
+      error(err.code, err.message);
+    });
   }
 
-  static Future<Object> showAd(String zoneId) async {
-    return await _channel
-        .invokeMethod('showAd', <String, dynamic>{'zoneId': zoneId});
+  static Future<Object> showAd(
+      String zoneId, Function response, Function error) async {
+    return await _channel.invokeMethod(
+        'showAd', <String, dynamic>{'zoneId': zoneId}).then((value) {
+      response(value);
+    }).catchError((err) {
+      error(err.code, err.message);
+    });
   }
 
   static Future<Object> showBannerAd(String zoneId) async {
