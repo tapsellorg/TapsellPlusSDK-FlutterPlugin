@@ -3,7 +3,6 @@ import 'package:tapsell_plus/tapsell_plus.dart';
 import 'package:tapsell_plus_example/Constant.dart';
 
 class InterstitialPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +10,8 @@ class InterstitialPage extends StatelessWidget {
         title: Text('Interstitial'),
       ),
       body: Center(
-        child: IntrinsicWidth(
+        child:Padding(
+          padding: EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -29,7 +29,7 @@ class InterstitialPage extends StatelessWidget {
               ),
             ],
           ),
-        ),
+        )
       ),
     );
   }
@@ -37,17 +37,15 @@ class InterstitialPage extends StatelessWidget {
   void requestInterstitial() {
     TapsellPlus.requestInterstitial(
         Constant.TAPSELL_INTERSTITIAL,
-            (zoneId) => response(zoneId),
-            (zoneId, errorMessage) => error(zoneId, errorMessage));
+        (zoneId) => response(zoneId),
+        (zoneId, errorMessage) => error(zoneId, errorMessage));
   }
 
   void showInterstitial() {
-    TapsellPlus.showAd(
-        Constant.TAPSELL_INTERSTITIAL,
-            (zoneId) => opened(zoneId),
-            (zoneId) => closed(zoneId),
-            (zoneId) => rewarded(zoneId),
-            (zoneId, errorMessage) => error(zoneId, errorMessage));
+    TapsellPlus.showAd(Constant.TAPSELL_INTERSTITIAL,
+        opened: (zoneId) => opened(zoneId),
+        closed: (zoneId) => closed(zoneId),
+        error: (zoneId, errorMessage) => error(zoneId, errorMessage));
   }
 
   response(zoneId) {
@@ -64,9 +62,5 @@ class InterstitialPage extends StatelessWidget {
 
   closed(zoneId) {
     print("closed: zone_id = $zoneId");
-  }
-
-  rewarded(zoneId) {
-    print("rewarded: zone_id = $zoneId");
   }
 }

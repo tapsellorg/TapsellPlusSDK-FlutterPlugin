@@ -10,25 +10,26 @@ class RewardedVideoPage extends StatelessWidget {
         title: Text('Rewarded Video'),
       ),
       body: Center(
-        child: IntrinsicWidth(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () {
-                  requestRewardedVideo();
-                },
-                child: Text('Request'),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  showRewardedVideo();
-                },
-                child: Text('Show'),
-              ),
-            ],
-          ),
-        ),
+          child:Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: () {
+                    requestRewardedVideo();
+                  },
+                  child: Text('Request'),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    showRewardedVideo();
+                  },
+                  child: Text('Show'),
+                ),
+              ],
+            ),
+          )
       ),
     );
   }
@@ -41,12 +42,11 @@ class RewardedVideoPage extends StatelessWidget {
   }
 
   void showRewardedVideo() {
-    TapsellPlus.showAd(
-        Constant.TAPSELL_REWARDED_VIDEO,
-        (zoneId) => opened(zoneId),
-        (zoneId) => closed(zoneId),
-        (zoneId) => rewarded(zoneId),
-        (zoneId, errorMessage) => error(zoneId, errorMessage));
+    TapsellPlus.showAd(Constant.TAPSELL_REWARDED_VIDEO,
+        opened: (zoneId) => opened(zoneId),
+        closed: (zoneId) => closed(zoneId),
+        rewarded: (zoneId) => rewarded(zoneId),
+        error: (zoneId, errorMessage) => error(zoneId, errorMessage));
   }
 
   response(zoneId) {

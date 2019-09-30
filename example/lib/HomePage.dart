@@ -16,7 +16,8 @@ class HomePage extends StatelessWidget {
         title: Text('Home page'),
       ),
       body: Center(
-        child: IntrinsicWidth(
+        child:Padding(
+          padding: EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[

@@ -62,8 +62,11 @@ class TapsellPlus {
     });
   }
 
-  static Future<Object> showAd(String zoneId, Function opened, Function closed,
-      Function rewarded, Function error) async {
+  static Future<Object> showAd(String zoneId,
+      {Function opened,
+      Function closed,
+      Function rewarded,
+      Function error}) async {
     _channel.invokeMethod("showAdClosedListener").then((value) {
       Map responseMap = jsonDecode(value);
       var response = TapsellPlusResponse.fromJson(responseMap);
