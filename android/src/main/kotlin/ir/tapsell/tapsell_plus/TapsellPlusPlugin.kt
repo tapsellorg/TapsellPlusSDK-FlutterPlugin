@@ -84,7 +84,7 @@ class TapsellPlusPlugin(private val activity: Activity) : MethodCallHandler {
                 val zoneId: String = call.argument("zoneId")!!
                 TapsellPlus.showAd(activity, null, false, zoneId, object : AdShowListener() {
                     override fun onOpened() {
-                        Log.e(TAG, "${call.method}AdOpened")
+                        Log.d(TAG, "${call.method}AdOpened")
                         try {
                             val response = TapsellPlusResponseModel(zoneId, "AdOpened")
                             result.success(Gson().toJson(response))
@@ -95,7 +95,7 @@ class TapsellPlusPlugin(private val activity: Activity) : MethodCallHandler {
                     }
 
                     override fun onClosed() {
-                        Log.e(TAG, "${call.method}AdClosed")
+                        Log.d(TAG, "${call.method}AdClosed")
                         try {
                             val response = TapsellPlusResponseModel(zoneId, "AdClosed")
                             result.success(Gson().toJson(response))
@@ -106,7 +106,7 @@ class TapsellPlusPlugin(private val activity: Activity) : MethodCallHandler {
                     }
 
                     override fun onRewarded() {
-                        Log.e(TAG, "${call.method}AdRewarded")
+                        Log.d(TAG, "${call.method}AdRewarded")
                         try {
                             val response = TapsellPlusResponseModel(zoneId, "AdRewarded")
                             result.success(Gson().toJson(response))
