@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:tapsell_plus/tapsell_plus.dart';
 import 'package:tapsell_plus_example/Constant.dart';
 
-class NativeBannerPage extends StatelessWidget {
-  String adImage, adTitle;
+class NativeBannerPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return NativeBanner();
+  }
+}
+
+class NativeBanner extends State<NativeBannerPage> {
+  String adImage = "", adTitle = "";
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +31,15 @@ class NativeBannerPage extends StatelessWidget {
               child: Text('Request And Show'),
             ),
             Container(
-              child: Image.network("",
-                  width: 100.0, height: 100.0, fit: BoxFit.cover),
+              child: Image.network(adImage, fit: BoxFit.cover),
               margin: EdgeInsets.only(top: 10.0),
               alignment: Alignment(0.0, 0.0),
             ),
             new Container(
-              child: new Text(""),
-              alignment: Alignment(-1.0, 0.0),
+              child: new Text(
+                adTitle,
+                textDirection: TextDirection.rtl,
+              ),
               margin: EdgeInsets.only(top: 10.0, left: 10.0),
             ),
           ],
@@ -49,8 +57,11 @@ class NativeBannerPage extends StatelessWidget {
 
   nativeBannerResponse(nativeBanner) {
     print("success: ad_id = ${nativeBanner.adId}");
-    adImage = nativeBanner.landscapeStaticImageUrl;
-    adTitle = nativeBanner.title;
+    setState(() {
+      adImage = nativeBanner.landscapeStaticImageUrl;
+      adTitle = nativeBanner.title;
+    });
+//    adTitle = nativeBanner.title;
   }
 
   error(zoneId, errorMessage) {
