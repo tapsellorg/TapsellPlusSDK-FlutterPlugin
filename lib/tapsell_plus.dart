@@ -64,27 +64,35 @@ class TapsellPlus {
 
   static Future<Object> showAd(String zoneId, Function opened, Function closed,
       Function rewarded, Function error) async {
+    _channel.invokeMethod("showAdClosedListener").then((value) {
+      Map responseMap = jsonDecode(value);
+      var response = TapsellPlusResponse.fromJson(responseMap);
+
+      if (response.responseType == "showAdClosed") {
+        closed(zoneId);
+      }
+    }).catchError((err) {
+      error(err.code, err.message);
+    });
+
+    _channel.invokeMethod("showAdRewardedListener").then((value) {
+      Map responseMap = jsonDecode(value);
+      var response = TapsellPlusResponse.fromJson(responseMap);
+
+      if (response.responseType == "showAdRewarded") {
+        rewarded(zoneId);
+      }
+    }).catchError((err) {
+      error(err.code, err.message);
+    });
+
     return await _channel.invokeMethod(
         'showAd', <String, dynamic>{'zoneId': zoneId}).then((value) {
       Map responseMap = jsonDecode(value);
       var response = TapsellPlusResponse.fromJson(responseMap);
 
-      switch (response.responseType) {
-        case "AdOpened":
-          {
-            opened(zoneId);
-            break;
-          }
-        case "AdClosed":
-          {
-            closed(zoneId);
-            break;
-          }
-        case "AdRewarded":
-          {
-            rewarded(zoneId);
-            break;
-          }
+      if (response.responseType == "showAdOpened") {
+        opened(zoneId);
       }
     }).catchError((err) {
       error(err.code, err.message);

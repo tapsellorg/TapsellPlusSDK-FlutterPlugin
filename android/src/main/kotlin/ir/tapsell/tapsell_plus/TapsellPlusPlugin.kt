@@ -13,6 +13,9 @@ import ir.tapsell.plus.*
 
 class TapsellPlusPlugin(private val activity: Activity) : MethodCallHandler {
 
+    private var showAdOpenedResult: Result? = null
+    private var showAdClosedResult: Result? = null
+    private var showAdRewardedResult: Result? = null
     private val TAG = "TapsellPlusFlutter"
 
     companion object {
@@ -29,6 +32,12 @@ class TapsellPlusPlugin(private val activity: Activity) : MethodCallHandler {
             "initialize" -> {
                 val appId: String = call.argument("appId")!!
                 TapsellPlus.initialize(activity, appId)
+            }
+            "showAdClosedListener" -> {
+                showAdClosedResult = result
+            }
+            "showAdRewardedListener" -> {
+                showAdRewardedResult = result
             }
             "setDebugMode" -> {
                 val logLevel: Int = call.argument("logLevel") ?: Log.DEBUG
@@ -86,7 +95,7 @@ class TapsellPlusPlugin(private val activity: Activity) : MethodCallHandler {
                     override fun onOpened() {
                         Log.d(TAG, "${call.method}AdOpened")
                         try {
-                            val response = TapsellPlusResponseModel(zoneId, "AdOpened")
+                            val response = TapsellPlusResponseModel(zoneId, "showAdOpened")
                             result.success(Gson().toJson(response))
                         } catch (e: Exception) {
                             Log.e(TAG, e.message)
@@ -97,8 +106,8 @@ class TapsellPlusPlugin(private val activity: Activity) : MethodCallHandler {
                     override fun onClosed() {
                         Log.d(TAG, "${call.method}AdClosed")
                         try {
-                            val response = TapsellPlusResponseModel(zoneId, "AdClosed")
-                            result.success(Gson().toJson(response))
+                            val response = TapsellPlusResponseModel(zoneId, "showAdClosed")
+                            showAdClosedResult?.success(Gson().toJson(response))
                         } catch (e: Exception) {
                             Log.e(TAG, e.message)
                             result.error(zoneId, e.message, null)
@@ -108,8 +117,8 @@ class TapsellPlusPlugin(private val activity: Activity) : MethodCallHandler {
                     override fun onRewarded() {
                         Log.d(TAG, "${call.method}AdRewarded")
                         try {
-                            val response = TapsellPlusResponseModel(zoneId, "AdRewarded")
-                            result.success(Gson().toJson(response))
+                            val response = TapsellPlusResponseModel(zoneId, "showAdRewarded")
+                            showAdRewardedResult?.success(Gson().toJson(response))
                         } catch (e: Exception) {
                             Log.e(TAG, e.message)
                             result.error(zoneId, e.message, null)
