@@ -10,27 +10,26 @@ class RewardedVideoPage extends StatelessWidget {
         title: Text('Rewarded Video'),
       ),
       body: Center(
-          child:Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: () {
-                    requestRewardedVideo();
-                  },
-                  child: Text('Request'),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    showRewardedVideo();
-                  },
-                  child: Text('Show'),
-                ),
-              ],
+          child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () {
+                requestRewardedVideo();
+              },
+              child: Text('Request'),
             ),
-          )
-      ),
+            RaisedButton(
+              onPressed: () {
+                showRewardedVideo();
+              },
+              child: Text('Show'),
+            ),
+          ],
+        ),
+      )),
     );
   }
 

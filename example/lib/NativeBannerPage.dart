@@ -61,7 +61,6 @@ class NativeBanner extends State<NativeBannerPage> {
       adImage = nativeBanner.landscapeStaticImageUrl;
       adTitle = nativeBanner.title;
     });
-//    adTitle = nativeBanner.title;
   }
 
   error(zoneId, errorMessage) {

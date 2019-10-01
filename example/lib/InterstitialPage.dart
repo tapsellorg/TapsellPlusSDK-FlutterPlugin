@@ -10,27 +10,26 @@ class InterstitialPage extends StatelessWidget {
         title: Text('Interstitial'),
       ),
       body: Center(
-        child:Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () {
-                  requestInterstitial();
-                },
-                child: Text('Request'),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  showInterstitial();
-                },
-                child: Text('Show'),
-              ),
-            ],
-          ),
-        )
-      ),
+          child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            RaisedButton(
+              onPressed: () {
+                requestInterstitial();
+              },
+              child: Text('Request'),
+            ),
+            RaisedButton(
+              onPressed: () {
+                showInterstitial();
+              },
+              child: Text('Show'),
+            ),
+          ],
+        ),
+      )),
     );
   }
 
