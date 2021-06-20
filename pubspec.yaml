@@ -1,0 +1,25 @@
+name: tapsell_plus
+description: Tapsell plus plugin for Flutter
+version: 2.0.0-nullsafety.1
+homepage: https://tapsell.ir
+documentation: https://docs.tapsell.ir/plus-sdk/flutter/main/
+issue_tracker: https://github.com/tapsellorg/TapsellPlusSDK-FlutterPlugin/issues
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: ir.tapsell.plus.flutter
+        pluginClass: TapsellPlusFlutterPlugin

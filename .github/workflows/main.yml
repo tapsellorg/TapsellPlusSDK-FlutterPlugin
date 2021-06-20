@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-sample:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup git
+        run: |
+          echo "Initializing git"
+          git config --global user.name "Tapsell-CI"
+          git config --global user.email "technical.tapsell@gmail.com"
+      - uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+          ssh-private-key: ${{ secrets.ACTION_PRIVATE_KEY }}
+      - name: Chaning local version to global version in sample
+        run: |
+          VERSION=$(cat pubspec.yaml | grep -i 'version:' | awk '{ print $2 }')
+          cd example
+          sed -i -e "s@path: ../@ @g" pubspec.yaml
+          var3='tapsell_plus:'; var4="tapsell_plus: $VERSION"
+          sed -i -e "s@$var3@$var4@g" pubspec.yaml
+          cd ..
+      - name: Push sample
+        run: |
+          VERSION=$(cat pubspec.yaml | grep -i 'version:' | awk '{ print $2 }')
+          rm -rf .git
+          cd example
+          git init
+          git remote add example https://github.com/tapsellorg/TapsellPlusSDK-FlutterSample
+          git add -A
+          git commit -m "Update example with tapsell_plus:$VERSION"
+          git push -f example master
+
