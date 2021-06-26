@@ -1,0 +1,93 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+    compileSdkVersion 30
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "ir.tapsell.plus.tapsell_plus_example"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            if (findProperty("keyStorePath") != null) {
+                storeFile file(findProperty("keyStorePath"))
+                storePassword findProperty("keyStorePassword")
+                keyAlias findProperty("keyAlias")
+                keyPassword findProperty("keyPassword")
+            } else {
+                def keystoreProperties = new Properties()
+                keystoreProperties.load(new FileInputStream(rootProject.file('key.properties')))
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    implementation 'androidx.multidex:multidex:2.0.1'
+
+
+    // region AdNetworks
+
+    // Admob
+    implementation 'com.google.android.gms:play-services-ads:19.8.0'
+    // AdColony
+    implementation("com.adcolony:sdk:4.5.0")
+    // Applovin - Why is it named app lovin ?
+    implementation("com.applovin:applovin-sdk:9.15.3")
+    // Chartboost
+    implementation("com.chartboost:chartboost-sdk:8.2.0")
+    // Unity ads
+    implementation("com.unity3d.ads:unity-ads:3.7.1")
+
+    // endregion
+}
