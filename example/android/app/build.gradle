@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -36,33 +36,15 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "ir.tapsell.plus.tapsell_plus_example"
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
     }
 
-    signingConfigs {
-        release {
-            if (findProperty("keyStorePath") != null) {
-                storeFile file(findProperty("keyStorePath"))
-                storePassword findProperty("keyStorePassword")
-                keyAlias findProperty("keyAlias")
-                keyPassword findProperty("keyPassword")
-            } else {
-                def keystoreProperties = new Properties()
-                keystoreProperties.load(new FileInputStream(rootProject.file('key.properties')))
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
-                storeFile file(keystoreProperties['storeFile'])
-                storePassword keystoreProperties['storePassword']
-            }
-        }
-    }
-
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }
@@ -77,17 +59,18 @@ dependencies {
 
 
     // region AdNetworks
+    // Make sure you visit https://docs.tapsell.ir/plus-sdk/flutter/add-adnetworks/ for full guide about AdNetworks
 
     // Admob
-    implementation 'com.google.android.gms:play-services-ads:20.2.0'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
     // AdColony
-    implementation("com.adcolony:sdk:4.5.0")
-    // Applovin - Why is it named app lovin ?
-    implementation("com.applovin:applovin-sdk:10.3.1")
+    implementation("com.adcolony:sdk:4.6.5")
+    // Applovin
+    implementation("com.applovin:applovin-sdk:10.3.4")
     // Chartboost
     implementation("com.chartboost:chartboost-sdk:8.2.1")
     // Unity ads
-    implementation("com.unity3d.ads:unity-ads:3.7.4")
+    implementation("com.unity3d.ads:unity-ads:3.7.5")
 
     // endregion
 }

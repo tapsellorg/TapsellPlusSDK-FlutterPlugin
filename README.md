@@ -1,7 +1,7 @@
 # Tapsell plus
 
-[**Tapsell Plus**](https://tapsell.ir/tapsellplus/) is a multi-platform mediator advertising SDK.  
-With Tapsell plus, you can get grow your advertising income with the favor of using multiple AdNetworks that is best for the at the moment.  
+[**Tapsell Plus**](https://tapsell.ir/tapsellplus/) is a mediating advertising SDK.  
+With Tapsell plus, you can get grow your advertising income with the favor of using multiple AdNetworks that is best for user at the moment.  
 
 ## Installation
 
@@ -38,12 +38,15 @@ Use `TapsellPlus.instance.` to access functionalities and methods
 void main() {
   runApp(MyApp());
 
-  TapsellPlus.instance.initialize(appId); // AppId from tapsell-dashboard
+  final appId = "TAPSELL_KEY"; // Get the key from tapsell-dashboard
+  TapsellPlus.instance.initialize(appId);
 }
 ```
 
 > Inserting `initialize` in the `main()` is **optional, but recommended**
 
+
+> **NOTE**: Use `TapsellPlus.instance.setDebugMode(LogLevel.Debug)` to enable debug mode and get verbose error messages.
 
 ### Request an Ad
 
@@ -63,7 +66,7 @@ TapsellPlus.instance.requestInterstitialAd(zoneId).then((responseId) {
   // Error occurred
 });
 
-// async-await way
+// async-await way - Remember to catch possible errors
 
 final responseId = await TapsellPlus.instance.requestInsterstitialAd(zoneId);
 ```
@@ -87,7 +90,7 @@ TapsellPlus.instance.showInterstitialAd(id,
 
 ## Documentations
 
-Refer to [tapsell plus documentation](https://docs.tapsell.ir/sdk/) for details and more information.
+Refer to [tapsell plus documentation](https://docs.tapsell.ir/plus-sdk/flutter/main/) for details and more information.
 
 ### Issues and question
 

@@ -1,3 +1,28 @@
+## 2.1.7 
+- [feat] Update native dependency to [`2.1.7`](https://docs.tapsell.ir/plus-sdk/android/main/#v217---20220328)
+  - [feat] Update admob to `20.6.0`
+  - [fix] Fix SSLFactory on Android versions prior to 4.4
+- [fix] Standard banner tag issue
+
+## 2.1.7-alpha01
+- [feat] Update native dependency to [`2.1.7`](https://docs.tapsell.ir/plus-sdk/android/main/#v217---20220328)
+- [fix] Standard banner tag issue
+
+## 2.1.6
+- [**New**] Add Vast Activity like Github Sample
+- [**New**] Add AppSetId due to new changes to advertisingId
+- [**New**] Add support for Mintegral Interstitial and Rewarded Ads
+- [**New**] Add support for Mintegral standard banner ads
+- [*Fix*] Fixed consistent request in VAST  
+- [*Fix*] Fixed Admob native banner crash 
+- [*Fix*] Fixed Tapsell Native Banner NullPointerException
+- [*Fix*] Fixed Standard banner refresh issue: it will now remove the previous banner if the request was failed and banner was not in shown state
+    - Modified adNetworks: AppLovin, AdMob, Tapsell, Mintegral
+- [change] Update Android dependency (TapsellPlus) to 2.1.6
+- [change] update **Tapsell** adNetwork version to 4.7.4
+- [change] Update targetSDK version to 31
+- [change] Error will notify more verbosely when all adNetworks failed to load
+
 ## 2.1.4
 - [**New**] Add AdColony Standard Banner
 - [**New**] Add Chartboost Interstitial Ad

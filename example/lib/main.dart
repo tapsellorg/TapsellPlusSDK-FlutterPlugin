@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tapsell_plus/tapsell_plus.dart';
-import 'package:tapsell_plus_example/modal.dart';
+import 'modal.dart';
 
 ///
 /// **Note**: For detailed example, clone the github sample from
