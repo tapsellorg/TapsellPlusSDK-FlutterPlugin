@@ -1,3 +1,13 @@
+
+## 2.1.8 (17 June, 2023)
+- [feat] Add support for `Admob native banner`
+- [Change]: Update `minSdkVersion` to 19 to support `google_mobile_ads:V1.3.0`
+- [change] Update Android dependency (TapsellPlus) to [`2.1.8`](https://docs.tapsell.ir/plus-sdk/android/main/#v218---20221121)
+- [change] Update Android `targetSdkVersion` to 33
+- [New] Added dynamic configs for `backPressed` final banner in video ads
+- [New] Add dynamic configs for back alert dialog in videos
+- [Fix] Update UnityAds to `V4.3.0` and fix deprecations based on ([UnityAds API](https://docs.unity.com/ads/UnityAPI.html))
+
 ## 2.1.7 
 - [feat] Update native dependency to [`2.1.7`](https://docs.tapsell.ir/plus-sdk/android/main/#v217---20220328)
   - [feat] Update admob to `20.6.0`

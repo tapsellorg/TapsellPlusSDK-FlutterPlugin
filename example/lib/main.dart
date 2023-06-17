@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:tapsell_plus/NativeAdData.dart';
+import 'package:tapsell_plus/NativeAdPayload.dart';
 import 'package:tapsell_plus/tapsell_plus.dart';
 import 'modal.dart';
 
@@ -19,8 +22,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final List<Map<String, String>> _list = [];
   String responseId = '';
+  String unitId = '';
+
   String adNetwork = 'tapsell';
   Map<String, String> zoneIds = TapsellConstant.zoneIds['Tapsell']!;
+
+  // Native Admob
+  String factoryId = 'FullNativeAdFactory';
+  bool isAdmobNativeLoaded = false;
+  NativeAd? admobNativeAd;
 
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -36,6 +46,18 @@ class _MyAppState extends State<MyApp> {
 
   void setResponseId(String id) => setState(() {
         responseId = id;
+      });
+
+  void setUnitId(String id) => setState(() {
+        unitId = id;
+      });
+
+  void setAdmobNativeLoaded(bool loaded) => setState(() {
+        isAdmobNativeLoaded = loaded;
+      });
+
+  void setAdmobNativeAd(NativeAd? ad) => setState(() {
+        admobNativeAd = ad;
       });
 
   void updateZoneIds(int index) => setState(() {
@@ -54,7 +76,7 @@ class _MyAppState extends State<MyApp> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
-        title: const Text('TapsellPlus - 2.1.3'),
+        title: const Text('TapsellPlus - 2.1.8'),
       ),
       body: Center(
           child: Column(
@@ -149,7 +171,15 @@ class _MyAppState extends State<MyApp> {
                       right: 1.0,
                       top: 1.0)
                 ],
-              ))
+              )),
+          isAdmobNativeLoaded
+              ? Container(
+                  child: AdWidget(ad: admobNativeAd!),
+                  width: double.infinity,
+                  height: 250,
+                  alignment: Alignment.center,
+                )
+              : Container(),
         ],
       )),
     );
@@ -366,8 +396,10 @@ class _MyAppState extends State<MyApp> {
               return;
             }
             TapsellPlus.instance.requestNativeAd(zoneId).then((value) {
-              log('Standard Ad is "READY"', tag: '--native');
-              setResponseId(value);
+              log('Native Ad is "READY"', tag: '--native');
+              print('requestNativeAd:' + value.entries.toString());
+              setResponseId(value['response_id']);
+              setUnitId(value['adnetwork_zone_id']);
             }).catchError((error) {
               log('Error requesting ad - $error', tag: '--native-status');
             });
@@ -380,14 +412,41 @@ class _MyAppState extends State<MyApp> {
           'onClick': () {
             final id = responseId;
             if (id.isNotEmpty) {
-              TapsellPlus.instance.showNativeAd(id, onOpened: (nativeAd) {
-                log('Ad opened - Data: ${nativeAd.toMap()}',
-                    tag: '--native-show');
-                showNativeAd(nativeAd);
+              TapsellPlus.instance.showNativeAd(id, admobFactoryId: factoryId,
+                  onOpened: (nativeAd) {
+                if (nativeAd is GeneralNativeAdPayload) {
+                  log('Ad opened - Data: ${nativeAd.ad.toMap()}',
+                      tag: '--native-show');
+                  showNativeAd(nativeAd.ad);
+                } else if (nativeAd is AdMobNativeAdPayload) {
+                  log('Admob opened - Data: ${nativeAd.ad.responseInfo?.responseId}',
+                      tag: '--native-show');
+                }
+              }, onLoaded: (nativeAd) {
+                if (nativeAd is AdMobNativeAdPayload) {
+                  setAdmobNativeLoaded(true);
+                } else if (nativeAd is AdMobNativeAdViewPayload) {
+                  setAdmobNativeAd(nativeAd.nativeAdView);
+                }
               }, onError: (map) {
                 log('Ad error - Error: $map', tag: '--native-show');
               });
             }
+          }
+        },
+        {
+          'name': 'Destroy Native banner',
+          'desc': 'Title is obvious',
+          'ready': zoneIds["NATIVE"] != null && adNetwork == 'Google AdMob',
+          'onClick': () {
+            final ad = admobNativeAd;
+            if (ad == null) {
+              log('Can not destroy while there is no ad',
+                  tag: '--native-destroy');
+              return;
+            }
+            admobNativeAd!.dispose();
+            setAdmobNativeLoaded(false);
           }
         },
       ];
@@ -411,7 +470,7 @@ class TapsellConstant {
     "Google AdMob": {
       "REWARDED": '5cfaa8aee8d17f0001ffb28f',
       "INTERSTITIAL": '5cfaa9b0e8d17f0001ffb293',
-      // "NATIVE": '5d123c9968287d00019e1a94', // Not quite supported
+      "NATIVE": '5d123c9968287d00019e1a94',
       "STANDARD": '5cfaaa4ae8d17f0001ffb295',
     },
     "AdColony": {

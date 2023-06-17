@@ -10,7 +10,7 @@
            android:value="ca-app-pub-3940256099942544~3347511713"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name="ir.tapsell.plus.tapsellplus_flutter_example.MainActivity"
             android:launchMode="singleTop"
             android:exported="true"
             android:theme="@style/LaunchTheme"

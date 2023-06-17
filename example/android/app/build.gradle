@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -36,7 +36,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "ir.tapsell.plus.tapsell_plus_example"
         minSdkVersion 19
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -46,6 +46,11 @@ android {
         release {
             signingConfig signingConfigs.debug
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -70,7 +75,7 @@ dependencies {
     // Chartboost
     implementation("com.chartboost:chartboost-sdk:8.2.1")
     // Unity ads
-    implementation("com.unity3d.ads:unity-ads:3.7.5")
+    implementation("com.unity3d.ads:unity-ads:4.3.0")
 
     // endregion
 }
