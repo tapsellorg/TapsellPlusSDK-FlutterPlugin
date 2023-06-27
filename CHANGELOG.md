@@ -1,4 +1,17 @@
 
+## 2.2.0 (27 Jun, 2023)
+- [fix]: Fixed Google Play policy error related to Collecting user's installed apps [GH-68](https://github.com/tapsellorg/TapsellPlusSDK-AndroidSample/issues/68
+- [**New**]: Added new UI for back dialog in rewarded videos
+- [change] Update Android dependency (TapsellPlus) to [`2.2.0`](https://docs.tapsell.ir/plus-sdk/android/main/#20220621-220)
+- [change]: Update `google_mobile_ads` to `3.0.0` and native Admob to `V22.0.0`
+- [fix]: Fix some memory leaks in tapsell sdk and tapsell plus sdk
+- [fix]: fix some proguard issues
+- [fix]: Fix wrong back dialog options in rewarded videos
+- [chore]: Update UnityAds to `V4.6.1`
+- [chore]: Update Mintegral to `V16.3.91`
+- [chore]: Update AdColony to `V4.8.0`
+- [chore]: Update AppLovin to `V11.8.2`
+
 ## 2.1.8 (17 June, 2023)
 - [feat] Add support for `Admob native banner`
 - [Change]: Update `minSdkVersion` to 19 to support `google_mobile_ads:V1.3.0`

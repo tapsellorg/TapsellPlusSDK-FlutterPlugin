@@ -18,6 +18,7 @@ Flow is **`develop` -> `release/VERSION` -> `TAG` -> `master`**
 > **Failure in CI**: If CI credentials were too old and publish failed you need to update them manually.  
 > 
 > If you already pushed a version manually, look for `pub_credentials.json` file and paste the new content in CI env var.
+> MacOS address: `/Users/username/Library/Application Support/dart`
 > 
 > [This](https://stackoverflow.com/a/70487480/6678991) might be helpful.
 > 

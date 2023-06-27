@@ -58,8 +58,8 @@ class AdmobNativeAdFactory(
 
             val bodyView = findViewById<TextView>(R.id.tv_list_tile_native_ad_body)
             with(bodyView) {
-                text = nativeAd.body
-                visibility = if (nativeAd.body.isNotEmpty()) View.VISIBLE else View.INVISIBLE
+                text = nativeAd.body ?: ""
+                visibility = if (text.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
             this.bodyView = bodyView
 

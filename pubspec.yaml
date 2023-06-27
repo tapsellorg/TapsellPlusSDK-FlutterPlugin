@@ -1,6 +1,6 @@
 name: tapsell_plus
 description: Tapsell Plus is a mediation SDK for in-app advertising purposes. TapsellPlus allows usage of multiple adNetworks and decides which one to to show at the moment to increase total income.
-version: 2.1.8
+version: 2.2.0
 homepage: https://github.com/tapsellorg/TapsellPlusSDK-FlutterPlugin
 documentation: https://docs.tapsell.ir/plus-sdk/flutter/main/
 issue_tracker: https://github.com/tapsellorg/TapsellPlusSDK-FlutterPlugin/issues
@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_mobile_ads: ^1.3.0
+  google_mobile_ads: ^3.0.0
 
 dev_dependencies:
   flutter_test:
