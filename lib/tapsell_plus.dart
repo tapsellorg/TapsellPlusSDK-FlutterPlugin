@@ -22,6 +22,9 @@ class TapsellPlus {
   Map<String, void Function(Map<String, String>)> _rewardCallbacks = {};
   Map<String, void Function(Map<String, String>)> _errorCallbacks = {};
 
+  // Used for banner ads
+  Map<String, void Function(Map<String, String>)> _requestCallbacks = {};
+
   // Native specific
   Map<String, void Function(NativeAdPayload)> _nativeCallbacks = {};
 
@@ -162,9 +165,16 @@ class TapsellPlus {
   ///
   /// Will give you a **responseId** as the result which is needed for showing the ad
   ///
-  Future<String> requestStandardBannerAd(
-      String zoneId, TapsellPlusBannerType bannerType) async {
-    if (!Platform.isAndroid) return "";
+  Future<bool> requestStandardBannerAd(
+      String zoneId,
+      TapsellPlusBannerType bannerType,
+      {required Function(Map<String, String>) onResponse,
+        required Function(Map<String, String>) onError}) async {
+    if (!Platform.isAndroid) return false;
+
+    _requestCallbacks[zoneId] = onResponse;
+    _errorCallbacks[zoneId] = onError;
+
 
     return await _channel.invokeMethod('TapsellPlus.requestStandardBannerAd',
         {'zone_id': zoneId, 'banner_type': bannerType.index});
@@ -279,7 +289,7 @@ class TapsellPlus {
 
   ///
   /// Shows the ad using the [unitId] and [factoryId].
-  /// unitId is existed in the [requestNativeAd] result
+  /// unitId exists in [requestNativeAd] result
   /// factoryId is the registered id of the factory you used to create the ad from your [Activity]
   ///
   /// **When the ad is loaded** [NativeAd] instance is returned
@@ -373,6 +383,19 @@ class TapsellPlus {
         String? zoneId = args['zone_id'] ?? "";
         String? adNetworkZoneId = args['adnetwork_zone_id'] ?? "";
         onAdMobNativeAdRequest(adNetworkZoneId, responseId, zoneId);
+        break;
+      case "notifyRequestResponse":
+        String? responseId = args['response_id'];
+        String? zoneId = args['zone_id'];
+        if (responseId == null || zoneId == null) return -1;
+        void Function(Map<String, String>)? c = _requestCallbacks[zoneId];
+        c?.call(args);
+        break;
+      case "notifyRequestError":
+        String? zoneId = args['zone_id'];
+        if (zoneId == null) return -1;
+        void Function(Map<String, String>)? c = _errorCallbacks[zoneId];
+        c?.call(args);
         break;
       default:
         return -1;

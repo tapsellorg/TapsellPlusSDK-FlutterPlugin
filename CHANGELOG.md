@@ -1,4 +1,9 @@
 
+## 2.2.3 (27 Jun, 2023)
+- [chore]: Update Tapsell legacy SDK to `4.8.4`
+- [fix]: Fix flutter crash in Standard banner ads: Reply already submitted [GH-15](https://github.com/tapsellorg/TapsellPlusSDK-FlutterPlugin/issues/15), [TUD-4040](https://jira.pegah.tech/browse/TUD-4040)
+- [fix]: Fix crash when using `telephonyManager.getAllCellInfo();`. check for fine location permission instead of coarse location permission [TUD-3899](https://jira.pegah.tech/browse/TUD-3899). See more in [Link1](https://stackoverflow.com/a/63246124/8291919), [Link2](https://developer.android.com/reference/android/telephony/TelephonyManager#getAllCellInfo())
+
 ## 2.2.0 (27 Jun, 2023)
 - [fix]: Fixed Google Play policy error related to Collecting user's installed apps [GH-68](https://github.com/tapsellorg/TapsellPlusSDK-AndroidSample/issues/68
 - [**New**]: Added new UI for back dialog in rewarded videos
