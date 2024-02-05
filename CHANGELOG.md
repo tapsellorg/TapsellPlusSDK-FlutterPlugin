@@ -1,5 +1,11 @@
 
-## 2.2.3 (27 Jun, 2023)
+## 2.2.4 (05 Feb, 2024)
+- [chore]: Update Tapsell legacy SDK to `4.8.8`
+- [feat]: Added support for `Gradle 8` and `R8 Full mode`.
+- [fix] crash related to OkHttp in Android 4.
+- [fix] GDPR consent issues in Tapsell sdk.
+
+## 2.2.3 (27 Sep, 2023)
 - [chore]: Update Tapsell legacy SDK to `4.8.4`
 - [fix]: Fix flutter crash in Standard banner ads: Reply already submitted [GH-15](https://github.com/tapsellorg/TapsellPlusSDK-FlutterPlugin/issues/15), [TUD-4040](https://jira.pegah.tech/browse/TUD-4040)
 - [fix]: Fix crash when using `telephonyManager.getAllCellInfo();`. check for fine location permission instead of coarse location permission [TUD-3899](https://jira.pegah.tech/browse/TUD-3899). See more in [Link1](https://stackoverflow.com/a/63246124/8291919), [Link2](https://developer.android.com/reference/android/telephony/TelephonyManager#getAllCellInfo())
