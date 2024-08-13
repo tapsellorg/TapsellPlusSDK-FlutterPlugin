@@ -1,3 +1,10 @@
+## 2.2.7 (25 Jun, 2024)
+- [chore]: Update Tapsell legacy SDK to `4.9.0`
+- [chore]: Update Applovin to `12.4.0`
+- [chore]: Update Admob to `22.6.0`
+- [chore]: Update UnityAds to `4.9.2`
+- [fix]: Fix flutter crash in Native banner ads: Reply already submitted [GH-27](https://github.com/tapsellorg/TapsellPlusSDK-FlutterPlugin/issues/27), [TUD-6346](https://jira.pegah.tech/browse/TUD-6346)
+
 
 ## 2.2.4 (05 Feb, 2024)
 - [chore]: Update Tapsell legacy SDK to `4.8.8`

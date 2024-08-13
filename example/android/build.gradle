@@ -1,13 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.8.20'
+    ext.kotlin_version = '1.7.10'
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
-        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -15,15 +14,17 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenLocal()
         mavenCentral()
-        jcenter()
-
+        maven { url 'https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea' }
     }
 }
 
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
     project.evaluationDependsOn(':app')
 }
 

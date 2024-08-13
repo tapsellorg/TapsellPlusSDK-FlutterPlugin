@@ -166,15 +166,13 @@ class TapsellPlus {
   /// Will give you a **responseId** as the result which is needed for showing the ad
   ///
   Future<bool> requestStandardBannerAd(
-      String zoneId,
-      TapsellPlusBannerType bannerType,
+      String zoneId, TapsellPlusBannerType bannerType,
       {required Function(Map<String, String>) onResponse,
-        required Function(Map<String, String>) onError}) async {
+      required Function(Map<String, String>) onError}) async {
     if (!Platform.isAndroid) return false;
 
     _requestCallbacks[zoneId] = onResponse;
     _errorCallbacks[zoneId] = onError;
-
 
     return await _channel.invokeMethod('TapsellPlus.requestStandardBannerAd',
         {'zone_id': zoneId, 'banner_type': bannerType.index});
@@ -253,8 +251,13 @@ class TapsellPlus {
   ///
   /// Native ads are a bunch of data given to you so you can show a completely native ad using your own desire and creativity
   ///
-  Future<Map> requestNativeAd(String zoneId) async {
-    if (!Platform.isAndroid) return {};
+  Future<bool> requestNativeAd(String zoneId,
+      {required Function(Map<String, String>) onResponse,
+      required Function(Map<String, String>) onError}) async {
+    if (!Platform.isAndroid) return false;
+
+    _requestCallbacks[zoneId] = onResponse;
+    _errorCallbacks[zoneId] = onError;
 
     return await _channel
         .invokeMethod('TapsellPlus.requestNativeAd', {'zone_id': zoneId});
@@ -314,6 +317,9 @@ class TapsellPlus {
         onAdOpened: (Ad ad) => {
           print('Native Admob ad opened'),
           onOpened?.call(NativeAdPayload.adMob(ad)),
+        },
+        onAdClicked: (Ad ad) => {
+          print('Native Admob ad clicked'),
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Ad failed to load: $error');
@@ -382,6 +388,8 @@ class TapsellPlus {
         String? responseId = args['response_id'] ?? "";
         String? zoneId = args['zone_id'] ?? "";
         String? adNetworkZoneId = args['adnetwork_zone_id'] ?? "";
+        void Function(Map<String, String>)? c = _requestCallbacks[zoneId];
+        c?.call(args);
         onAdMobNativeAdRequest(adNetworkZoneId, responseId, zoneId);
         break;
       case "notifyRequestResponse":
