@@ -328,8 +328,7 @@ class _MyAppState extends State<MyApp> {
               return;
             }
             TapsellPlus.instance.requestStandardBannerAd(
-                zoneId, TapsellPlusBannerType.BANNER_320x50,
-                onResponse: (map) {
+                zoneId, TapsellPlusBannerType.BANNER_320x50, onResponse: (map) {
               log('Standard Ad is "READY"', tag: '--standard');
               setResponseId(map['response_id'] ?? '');
             }, onError: (map) {
@@ -396,13 +395,14 @@ class _MyAppState extends State<MyApp> {
               log("AdNetwork '$adNetwork' does not support NativeAd");
               return;
             }
-            TapsellPlus.instance.requestNativeAd(zoneId).then((value) {
+            TapsellPlus.instance.requestNativeAd(zoneId, onResponse: (map) {
               log('Native Ad is "READY"', tag: '--native');
-              print('requestNativeAd:' + value.entries.toString());
-              setResponseId(value['response_id']);
-              setUnitId(value['adnetwork_zone_id'] ?? "");
-            }).catchError((error) {
-              log('Error requesting ad - $error', tag: '--native-status');
+              print('requestNativeAd:' + map.entries.toString());
+              setResponseId(map['response_id'] ?? "");
+              setUnitId(map['adnetwork_zone_id'] ?? "");
+            }, onError: (map) {
+              log('Error requesting ad - ${map.entries}',
+                  tag: '--native-status');
             });
           }
         },
