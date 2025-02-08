@@ -1,3 +1,7 @@
+## 2.3.1 (05 Feb, 2025)
+- [chore]: Update Tapsell legacy SDK to `4.9.7`
+- [chore]: Downgrade Kotlin version to `1.7.10`
+
 ## 2.2.7 (25 Jun, 2024)
 - [chore]: Update Tapsell legacy SDK to `4.9.0`
 - [chore]: Update Applovin to `12.4.0`
