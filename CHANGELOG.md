@@ -1,3 +1,7 @@
+## 2.3.2 (23 Feb, 2025)
+- [chore]: Update Tapsell legacy SDK to `4.9.8`
+- [fix]: - Fix conflict with `InAppBilling` SDKs
+
 ## 2.3.1 (05 Feb, 2025)
 - [chore]: Update Tapsell legacy SDK to `4.9.7`
 - [chore]: Downgrade Kotlin version to `1.7.10`

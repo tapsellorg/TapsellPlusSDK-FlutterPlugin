@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
-        title: const Text('TapsellPlus - 2.3.1'),
+        title: const Text('TapsellPlus - 2.3.2'),
       ),
       body: Center(
           child: Column(
